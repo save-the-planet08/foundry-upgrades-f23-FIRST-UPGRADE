@@ -1,66 +1,64 @@
-## Foundry
+# Foundry Upgrade Project
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This repository showcases a project aimed at demonstrating how to implement and upgrade smart contracts using the Universal Upgradeable Proxy Standard (UUPS). The project includes two versions of a contract (`BoxV1` and `BoxV2`), along with scripts for deploying and upgrading the contract, and comprehensive tests to validate the process.
 
-Foundry consists of:
+## Project Overview
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+### Purpose
 
-## Documentation
+The primary goal of this project is to illustrate the process of creating and upgrading smart contracts in a secure and efficient manner using the UUPS proxy pattern. This pattern allows for the contract logic to be upgraded without changing the contract address, preserving the state and permissions of the original contract.
 
-https://book.getfoundry.sh/
+### Components
 
-## Usage
+- **Smart Contracts**:
+  - **BoxV1**: The initial version of the contract that provides basic functionality to store and retrieve a number.
+  - **BoxV2**: The upgraded version that extends the functionality of `BoxV1` by adding the ability to set a new number.
+- **Deployment Scripts**:
+  - **DeployBox**: A script to deploy the `BoxV1` contract behind a UUPS proxy.
+  - **UpgradeBox**: A script to upgrade the implementation of the proxy to `BoxV2`.
+- **Tests**:
+  - **DeployAndTestUpgradeTst**: A comprehensive test suite to ensure that the deployment and upgrade processes work as expected.
 
-### Build
+## Getting Started
 
-```shell
-$ forge build
-```
+### Prerequisites
 
-### Test
+Ensure you have the following installed:
 
-```shell
-$ forge test
-```
+- [Foundry](https://getfoundry.sh/) - A blazing fast, portable and modular toolkit for Ethereum application development.
+- [Node.js](https://nodejs.org/) - JavaScript runtime for executing the deployment scripts.
 
-### Format
+### Installation
 
-```shell
-$ forge fmt
-```
+1. **Clone the repository**:
+    ```sh
+    git clone https://github.com/save-the-planet08/foundry-upgrades-f23-FIRST-UPGRADE.git
+    cd foundry-upgrade-project
+    ```
 
-### Gas Snapshots
+2. **Install dependencies**:
+    ```sh
+    forge install
+    ```
 
-```shell
-$ forge snapshot
-```
+### Deployment
 
-### Anvil
+1. **Deploy `BoxV1`**:
+    - Run the deployment script to deploy the initial version of the contract behind a UUPS proxy.
+    ```sh
+    forge script script/DeployBox.s.sol:DeployBox --rpc-url <YOUR_RPC_URL> --broadcast
+    ```
 
-```shell
-$ anvil
-```
+2. **Upgrade to `BoxV2`**:
+    - Run the upgrade script to change the implementation of the proxy to `BoxV2`.
+    ```sh
+    forge script script/UpgradeBox.s.sol:UpgradeBox --rpc-url <YOUR_RPC_URL> --broadcast
+    ```
 
-### Deploy
+### Running Tests
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
+To ensure that everything is working correctly, run the tests:
 
-### Cast
+```sh
+forge test
 
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
